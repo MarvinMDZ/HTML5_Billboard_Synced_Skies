@@ -1,0 +1,63 @@
+<!DOCTYPE html> 
+	<head>
+		<meta charset="utf-8"/> 
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/> 
+		<title>Sky Derecho</title>
+        <link rel="stylesheet" href="style.css"/> 
+        <script type="text/javascript" src="http://ds.serving-sys.com/BurstingScript/adKit/adkit.js"></script>
+        <script type="text/javascript" src="../scripts/jssync.js"></script>
+		<script>
+			var clickBtn;
+		
+			function startAd() {
+
+				document.getElementById("clickthroughButton").addEventListener('click',function(){
+					EB.clickthrough("click_der");
+				});
+				document.getElementById("billboardBtn").addEventListener('click',function(){
+					jssync.sendMessage('base', 'dosomething');
+				});
+				document.getElementById("skyBtn").addEventListener('click',function(){
+					jssync.sendMessage('sky_izq', 'dosomething');
+				});
+			}
+
+            adkit.onReady(startAd);
+
+            var feature_config = {
+                numAds: 3,
+                adName: 'sky_der',
+                panelName: 'sky_der'  
+            };
+         
+            var jssync = new jsSync (feature_config);
+
+            jssync.addEventListener("connection_established", adsConnected, false);
+              
+            function adsConnected() {
+                console.log("conected_sky_der");
+            }
+            function dosomething() {
+                console.log("dosomething_sky_der");
+                document.getElementById("demoContainer").style.visibility = 'visible';
+		        setTimeout(function(){
+		            document.getElementById("demoContainer").style.visibility = 'hidden';
+		        },600);
+            }
+
+
+		</script>
+	</head>
+	<body>
+		<div id="sky">
+			<div id="demoContainer" style="width: 100%;height: 100%;position: absolute;background-color: rgba(0,0,0,.7);visibility: hidden;">
+        <img src="../images/idea.svg" alt="Allrigth" style="max-height: 74%;top: 50%;transform: translateY(-50%);position: absolute;margin-left: 10px;" />
+      </div>
+			<button id="clickthroughButton" class="button"></button>
+			<button id="billboardBtn" class="selector">Billboard</button>
+			<button id="skyBtn" class="selector">Sky Izquierdo</button>
+			<img src="../images/sky_der.jpg" id="sky_der" alt="Sky Derecho" />
+		</div>
+	</body>
+</html>
+

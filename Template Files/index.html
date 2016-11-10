@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HTML5 Billboard+skys</title>
+    <link rel="stylesheet" href="styles/style.css" />
+    <script type="text/javascript" src="http://ds.serving-sys.com/BurstingScript/adKit/adkit.js"></script>
+    <script type="text/javascript" src="scripts/jssync.js"></script>
+    
+</head>
+<body>
+<script type="text/javascript"> 
+
+    function startAd() {
+        adDiv = document.getElementById("ad");
+        
+        EB.expand( { panelName: "sky_izq", actionType: "Auto" } );
+        EB.expand( { panelName: "sky_der", actionType: "Auto" } );
+
+        document.getElementById("clickthroughButton").addEventListener("click",function(){
+            EB.clickthrough();
+        });
+        document.getElementById("skyDerBtn").addEventListener('click',function(){
+            jssync.sendMessage('sky_der', 'dosomething');
+        });
+        document.getElementById("skyIzqBtn").addEventListener('click',function(){
+            jssync.sendMessage('sky_izq', 'dosomething');
+        });
+    }
+
+    adkit.onReady(startAd);
+
+
+    var feature_config = {
+        numAds: 3,
+        adName: 'base'
+    };
+
+    var jssync = new jsSync (feature_config);
+
+    jssync.addEventListener("connection_established", adsConnected, false);         
+  
+    function adsConnected() {
+        console.log("conected_base");
+    }
+
+    function dosomething() {
+        console.log("dosomething_base");
+        document.getElementById("demoContainer").style.visibility = 'visible';
+        setTimeout(function(){
+            document.getElementById("demoContainer").style.visibility = 'hidden';
+        },600);
+    }
+
+</script>
+    <div id="ad">
+      <div id="demoContainer" style="width: 100%;height: 100%;position: absolute;background-color: rgba(0,0,0,.7);visibility: hidden;">
+        <img src="images/idea.svg" alt="Allrigth" style="max-height: 74%;top: 50%;transform: translateY(-50%);position: absolute;margin-left: 50px;" />
+      </div>
+      <button id="clickthroughButton" class="button"></button>
+      <button id="skyIzqBtn" class="selector">Sky Izquierdo</button>
+      <button id="skyDerBtn" class="selector">Sky Derecho</button>
+      <img src="images/default.jpg" alt="Sizmek" />
+    </div>
+</body>
+</html>
